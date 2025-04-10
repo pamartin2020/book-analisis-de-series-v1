@@ -39,5 +39,5 @@ El conjunto de datos está disponible públicamente en el repositorio de UCI Mac
 Los datos están disponibles bajo dominio público con fines educativos e investigativos, sin requerimiento de permisos adicionales para su análisis académico.
 
 ## Realizado Por:
-Christophe Eklouh Molinier, Juan Camilo Perdomo, Paulo Andres Martinez.
+Juan Camilo Perdomo, Paulo Andres Martinez, Christophe Eklouh Molinier.
 
