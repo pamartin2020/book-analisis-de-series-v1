@@ -1,0 +1,41 @@
+--- 
+title: "Bookdown Online Retail 22.6 MB"
+author: "Paulo Andres Martinez"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography:
+- book.bib
+- packages.bib
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  set in the _output.yml file.
+  The HTML output format for this example is bookdown::gitbook,
+link-citations: true
+github-repo: "rstudio/bookdown-demo"
+---
+# Propuesta de análisis de series de tiempo
+
+## Título: Pronóstico de ventas en una tienda de comercio electrónico
+
+## Información a analizar
+Se utilizará el conjunto de datos **Online Retail** disponible en el repositorio de UCI Machine Learning. Este dataset contiene transacciones de una tienda de comercio electrónico entre diciembre de 2010 y diciembre de 2011. Incluye variables como fecha, cantidad de productos, descripción del producto, país del cliente y más.
+
+## Justificación
+El análisis y pronóstico de ventas a lo largo del tiempo permite tomar decisiones estratégicas en cuanto a inventario, promociones, logística y atención al cliente. Identificar patrones temporales como estacionalidad o tendencias puede mejorar la planificación operativa y financiera.
+
+## Importancia del pronóstico
+Predecir el comportamiento de ventas en función del tiempo permite a la empresa:
+- Anticiparse a la demanda de productos.
+- Optimizar el stock disponible.
+- Diseñar campañas de marketing más efectivas.
+- Tomar decisiones basadas en evidencia histórica.
+
+## Fuentes de información
+El conjunto de datos está disponible públicamente en el repositorio de UCI Machine Learning:  
+[https://archive.ics.uci.edu/dataset/352/online+retail](https://archive.ics.uci.edu/dataset/352/online+retail)
+
+## Permisos de uso
+Los datos están disponibles bajo dominio público con fines educativos e investigativos, sin requerimiento de permisos adicionales para su análisis académico.
+
+
