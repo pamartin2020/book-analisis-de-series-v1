@@ -1,0 +1,7 @@
+propuesta-de-análisis-de-series-de-tiempo
+título-pronóstico-de-ventas-en-una-tienda-de-comercio-electrónico
+información-a-analizar
+justificación
+importancia-del-pronóstico
+fuentes-de-información
+permisos-de-uso
