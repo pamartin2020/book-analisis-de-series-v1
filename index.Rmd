@@ -1,5 +1,5 @@
 --- 
-title: "Bookdown Online Retail 22.6 MB"
+title: "Bookdown Online Retail 22.MB"
 author: "Paulo Andres Martinez"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
