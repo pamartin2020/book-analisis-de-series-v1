@@ -1,5 +1,5 @@
 --- 
-title: "Bookdown Online Retail 22.MB"
+title: "Bookdown Online Retail"
 author: "Paulo Andres Martinez"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -18,8 +18,14 @@ github-repo: "rstudio/bookdown-demo"
 
 ## Título: Pronóstico de ventas en una tienda de comercio electrónico
 
+## Introduccion:
+Este proyecto tuvo como objetivo desarrollar un modelo de series de tiempo para predecir las ventas de una tienda de comercio electrónico, utilizando el conjunto de datos "Online Retail". A lo largo del análisis, se exploraron patrones temporales como la estacionalidad y las tendencias, con el fin de generar predicciones que puedan servir como base para tomar decisiones estratégicas dentro del negocio.
+
+
 ## Información a analizar
 Se utilizará el conjunto de datos **Online Retail** disponible en el repositorio de UCI Machine Learning. Este dataset contiene transacciones de una tienda de comercio electrónico entre diciembre de 2010 y diciembre de 2011. Incluye variables como fecha, cantidad de productos, descripción del producto, país del cliente y más.
+
+
 
 ## Justificación
 El análisis y pronóstico de ventas a lo largo del tiempo permite tomar decisiones estratégicas en cuanto a inventario, promociones, logística y atención al cliente. Identificar patrones temporales como estacionalidad o tendencias puede mejorar la planificación operativa y financiera.
