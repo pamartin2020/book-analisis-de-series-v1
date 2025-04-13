@@ -1,6 +1,6 @@
 --- 
 title: "Bookdown Online Retail"
-author: "Paulo Andres Martinez"
+author: "Paulo Andres Martinez - Juan Camilo Perdomo - Christophe Eklouh Molinier "
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -36,6 +36,13 @@ Predecir el comportamiento de ventas en función del tiempo permite a la empresa
 - Optimizar el stock disponible.
 - Diseñar campañas de marketing más efectivas.
 - Tomar decisiones basadas en evidencia histórica.
+
+## Metodología de análisis
+- Limpieza y preprocesamiento de datos
+- Exploración y visualización de series temporales
+- Detección de estacionalidad y tendencias
+- Construcción de modelos predictivos
+- Evaluación del rendimiento del modelo
 
 ## Fuentes de información
 El conjunto de datos está disponible públicamente en el repositorio de UCI Machine Learning:  

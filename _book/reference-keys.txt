@@ -7,3 +7,4 @@ fuentes-de-información
 permisos-de-uso
 realizado-por
 introduccion
+metodología-de-análisis
