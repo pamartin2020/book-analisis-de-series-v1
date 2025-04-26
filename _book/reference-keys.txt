@@ -8,3 +8,13 @@ permisos-de-uso
 realizado-por
 introduccion
 metodología-de-análisis
+introducción
+procesamiento-de-datos
+ventas-por-día
+promedio-móvil-7-días
+ventas-por-hora
+autocorrelación-acf
+estacionalidad
+conclusiones
+introducción-1
+fuente-de-datos

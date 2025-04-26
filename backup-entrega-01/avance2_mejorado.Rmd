@@ -35,7 +35,7 @@ datos <- datos %>%
          ventas = Quantity * UnitPrice)
 ```
 
-# Ventas por Día
+# Ventas por día
 
 ```{r ventas-dia}
 ventas_dia <- datos %>%
