@@ -11,7 +11,7 @@
 
 <meta name="author" content="Paulo Andres Martinez - Juan Camilo Perdomo - Christophe Eklouh Molinier" />
 
-<meta name="date" content="2025-04-25" />
+<meta name="date" content="2025-04-27" />
 
 <title>Bookdown Online Retail</title>
 
@@ -339,7 +339,7 @@ display: none;
 
 <h1 class="title toc-ignore">Bookdown Online Retail</h1>
 <h4 class="author">Paulo Andres Martinez - Juan Camilo Perdomo - Christophe Eklouh Molinier</h4>
-<h4 class="date">2025-04-25</h4>
+<h4 class="date">2025-04-27</h4>
 
 </div>
 
@@ -368,7 +368,7 @@ datos &lt;- datos %&gt;%
          ventas = Quantity * UnitPrice)</code></pre>
 </div>
 <div id="ventas-por-día" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Ventas por día</h1>
+<h1><span class="header-section-number">3</span> Ventas por Día</h1>
 <pre class="r"><code>ventas_dia &lt;- datos %&gt;%
   group_by(Fecha) %&gt;%
   summarise(ventas_totales = sum(ventas, na.rm = TRUE))
@@ -380,6 +380,21 @@ ggplot(ventas_dia, aes(x = Fecha, y = ventas_totales)) +
 </div>
 <div id="promedio-móvil-7-días" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Promedio móvil (7 días)</h1>
+<div style="text-align: justify;">
+<p>Análisis: Ventas por día
+La serie temporal diaria muestra un comportamiento interesante:</p>
+<p>Tendencia general al alza:
+Aunque la serie presenta una alta variabilidad diaria, se puede apreciar una tendencia ascendente a lo largo del tiempo, especialmente a partir de mediados del año 2011. Esto podría indicar un crecimiento progresivo en las ventas, posiblemente relacionado con el aumento de la demanda, mayor visibilidad de la tienda, o campañas de marketing.</p>
+<p>Alta volatilidad:
+La serie muestra fluctuaciones diarias muy marcadas, lo cual es típico en el comercio electrónico donde los picos de ventas pueden estar asociados a días de promoción, lanzamientos de productos o eventos especiales.</p>
+<p>Picos significativos:
+Se observan picos agudos en septiembre, octubre y noviembre de 2011. Estos podrían estar relacionados con:
+Periodos previos a compras de fin de año.
+Black Friday u otros eventos estacionales.
+Grandes pedidos corporativos o mayoristas.</p>
+<p>Estacionalidad posible:
+Aunque no se detecta un patrón repetitivo semanal claro a simple vista, los picos y la dispersión creciente podrían sugerir cierta estacionalidad a investigar con más detalle (por ejemplo, ventas por día de la semana o por mes).</p>
+</div>
 <pre class="r"><code>ventas_dia &lt;- ventas_dia %&gt;%
   mutate(prom_movil = zoo::rollmean(ventas_totales, k = 7, fill = NA))
 

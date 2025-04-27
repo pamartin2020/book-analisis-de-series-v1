@@ -48,6 +48,25 @@ ggplot(ventas_dia, aes(x = Fecha, y = ventas_totales)) +
 ```
 
 # Promedio móvil (7 días)
+<div style="text-align: justify;">
+Análisis: Ventas por día
+La serie temporal diaria muestra un comportamiento interesante:
+
+Tendencia general al alza:
+Aunque la serie presenta una alta variabilidad diaria, se puede apreciar una tendencia ascendente a lo largo del tiempo, especialmente a partir de mediados del año 2011. Esto podría indicar un crecimiento progresivo en las ventas, posiblemente relacionado con el aumento de la demanda, mayor visibilidad de la tienda, o campañas de marketing.
+
+Alta volatilidad:
+La serie muestra fluctuaciones diarias muy marcadas, lo cual es típico en el comercio electrónico donde los picos de ventas pueden estar asociados a días de promoción, lanzamientos de productos o eventos especiales.
+
+Picos significativos:
+Se observan picos agudos en septiembre, octubre y noviembre de 2011. Estos podrían estar relacionados con:
+Periodos previos a compras de fin de año.
+Black Friday u otros eventos estacionales.
+Grandes pedidos corporativos o mayoristas.
+
+Estacionalidad posible:
+Aunque no se detecta un patrón repetitivo semanal claro a simple vista, los picos y la dispersión creciente podrían sugerir cierta estacionalidad a investigar con más detalle (por ejemplo, ventas por día de la semana o por mes).
+</div>
 
 ```{r promedio-movil}
 ventas_dia <- ventas_dia %>%
