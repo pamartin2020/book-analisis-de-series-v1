@@ -1,0 +1,49 @@
+Contexto
+Tendencia, estacionalidad, datos y residuos
+Para iniciar les comparto el siguiente Video a través del cual comentaremos la necesidad de segregar la serie en sus distintas componentes: tendencia, estacionalidad, datos y residuos. 
+
+Video-1-Importancia de la segregación
+00:00:00	[Música] un saludo a todos y bienvenidos el método descomposición clásico se originó en la década de 1920 es un procedimiento relativamente simple y constituye El Punto de partida para la mayoría y demás método descomposición de series temporales hay dos formas de descomposición clásica una descomposición aditiva y una descomposición multiplicativa en la descomposición clásica suponemos que el componente estacional es constante de un año a otro para la estacionalidad multiplicativa los valores que forman el
+00:00:42	componente estacional a veces se denominan índices estacionales en esta unidad vamos a relacionar la descomposición de una serie de tiempo evidenciando la importancia de su comprensión en el análisis descriptivo nos vemos en un próximo vídeo hasta pronto
+
+Experiencia:
+Librerías y funciones
+En este momento, por medio del siguiente documento, se presentan las librerías y las funciones que permiten descomponer, con base en la clase de objetos, y definir la estacionariedad de una serie de tiempo. Para esto, usaremos la base de datos proveniente de IMAE_Valle.
+
+Link 
+https://isabelcgarciaa.github.io/TSM1/M1U3_Experiencia_Valle.html
+
+
+---------
+Tutorial:
+---------
+
+Descomposición
+Tipos de descomposición
+Responda a la siguiente pregunta:
+
+Ejercicio con código
+Escriba el código adecuado:
+
+Para el siguiente vector escriba la función adecuada para la descomposición y grafique
+
+vector= c(1973.1,1961.53,1993.23,1937.27,2044.57,2054.27,2028.18,2082.2,2079.99,2094.86,2111.94,2099.29,2094.14,2039.87,1944.41,2024.81,2080.62,2054.08,1918.6,1904.42,2021.95,2075.54,2065.55,2083.89,2148.9,2170.95,2157.69,2143.02,2164.99,2246.63,2275.12,2329.91,2366.82,2359.31,2395.35,2433.99)
+data=ts(vector,start=c(2014,7),frequency=12)
+datacomp <- decompose(data)
+plot(datacomp)
+Estacionariedad
+Responda a la siguiente pregunta:
+
+Ejercicio con código
+Escriba el código adecuado:
+
+Para el siguiente vector escriba la función adecuada para la verificar la estacionariedad
+
+library(aTSA)
+data1 <- rnorm(50)
+data_ts <- ts(data1,start=c(2014,7),frequency=12)
+library(aTSA)
+data.adf <- adf.test(data_ts)
+
+Tutorial de Rstudio.
+https://centromagis.github.io/nivelatorioEST3/

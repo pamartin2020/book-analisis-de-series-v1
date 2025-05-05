@@ -1,4 +1,3 @@
-
 ---
 title: "Bookdown Online Retail"
 author: "Paulo Andres Martinez - Juan Camilo Perdomo - Christophe Eklouh Molinier "
@@ -117,3 +116,10 @@ Este análisis facilita la toma de decisiones informadas en estrategias comercia
 
 Los datos utilizados corresponden al conjunto "Online Retail" disponible públicamente en el repositorio de UCI Machine Learning:  
 [https://archive.ics.uci.edu/dataset/352/online+retail](https://archive.ics.uci.edu/dataset/352/online+retail)
+
+# Avance 3
+
+En el avance anterior se analizaron las ventas por día, su promedio móvil, la variación horaria y la autocorrelación de la serie. A partir de estos hallazgos, se procede ahora con un análisis más profundo sobre la estructura estacional, la estacionariedad de la serie y posibles transformaciones necesarias para estabilizarla.
+
+```{r child="avance3.Rmd"}
+```
