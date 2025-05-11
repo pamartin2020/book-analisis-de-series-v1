@@ -47,3 +47,48 @@ data.adf <- adf.test(data_ts)
 
 Tutorial de Rstudio.
 https://centromagis.github.io/nivelatorioEST3/
+
+
+
+(2) 3218200
+
+danna.bolanos@javerianacali.edu.co
+
+facturaciontesoreria@javerianacali.edu.co
+apoyofinanciero@javerianacali.edu.co
+
+
+Paulo Andres Martinez 94424446 Maestria Ciencia de Datos
+Juan Jose Martinez Zapata 1110366658 
+Santiago Martinez Zapata 1110364334 Estudiante Derecho
+
+
+Necesitamos un datacenter a la vanguardia con GPU NVIDIA L4.
+Para:
+Analítica predictiva y modelos de machine learning
+Automatización de procesos con visión artificial - Correr modelos como YOLO, Detectron2, OpenCV 
+Bots inteligentes y asistentes virtuales personalizados Gemma2::B y DB Vectoriales FAISS.
+
+
+casos de uso de agentes de IA mas Populares.
+
+
+1405 semanas me posiciona en regimen de transicion
+ley 100 del ano 93, 
+
+En la prueba ADF , donde nos informa que si es estacionaria
+en ese caso no deberiamos realizar la diferenciacion
+
+
+
+IA Sistema de Fijación Dinámica de Precios y Ofertas Personalizadas
+Objetivo: Ajustar precios y promociones automáticamente según comportamiento del cliente, competencia, demanda y análisis de datos.
+Tecnología: Motor de pricing dinámico con IA + análisis en tiempo real con de tendencias de consumo y mercado.
+
+Beneficios:
+Mayor competitividad sin comprometer márgenes.
+Promociones adaptadas al perfil y uso del cliente.
+Incremento de ingresos por usuario (ARPU).
+
+
+ 3188311443
