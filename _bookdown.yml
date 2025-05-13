@@ -1,0 +1,9 @@
+book_filename: "analisis_series_tiempo"
+language:
+  ui:
+    chapter_name: "Capítulo "
+rmd_files: [
+  "index.Rmd",
+  "avance3.Rmd",
+  "avance4.Rmd"
+]
