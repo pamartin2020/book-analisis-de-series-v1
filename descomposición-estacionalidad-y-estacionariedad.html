@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 11 Descomposición, Estacionalidad y Estacionariedad | Análisis temporal - Avance 3</title>
+  <meta name="description" content="Capítulo 11 Descomposición, Estacionalidad y Estacionariedad | Análisis temporal - Avance 3" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 11 Descomposición, Estacionalidad y Estacionariedad | Análisis temporal - Avance 3" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 11 Descomposición, Estacionalidad y Estacionariedad | Análisis temporal - Avance 3" />
+  
+  
+  
+
+<meta name="author" content="Paulo Andres Martinez - Juan Camilo Perdomo - Christophe Eklouh Molinier" />
+
+
+<meta name="date" content="2025-05-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="avance-3.html"/>
+<link rel="next" href="conclusión.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="procesamiento-de-datos.html"><a href="procesamiento-de-datos.html"><i class="fa fa-check"></i><b>2</b> Procesamiento de datos</a></li>
+<li class="chapter" data-level="3" data-path="ventas-por-día.html"><a href="ventas-por-día.html"><i class="fa fa-check"></i><b>3</b> Ventas por Día</a></li>
+<li class="chapter" data-level="4" data-path="promedio-móvil-7-días.html"><a href="promedio-móvil-7-días.html"><i class="fa fa-check"></i><b>4</b> Promedio móvil (7 días)</a></li>
+<li class="chapter" data-level="5" data-path="ventas-por-hora.html"><a href="ventas-por-hora.html"><i class="fa fa-check"></i><b>5</b> Ventas por hora</a></li>
+<li class="chapter" data-level="6" data-path="autocorrelación-acf.html"><a href="autocorrelación-acf.html"><i class="fa fa-check"></i><b>6</b> Autocorrelación (ACF)</a></li>
+<li class="chapter" data-level="7" data-path="estacionalidad.html"><a href="estacionalidad.html"><i class="fa fa-check"></i><b>7</b> Estacionalidad</a></li>
+<li class="chapter" data-level="8" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>8</b> Conclusiones</a></li>
+<li class="chapter" data-level="9" data-path="fuente-de-datos.html"><a href="fuente-de-datos.html"><i class="fa fa-check"></i><b>9</b> Fuente de datos</a></li>
+<li class="chapter" data-level="10" data-path="avance-3.html"><a href="avance-3.html"><i class="fa fa-check"></i><b>10</b> Avance 3</a></li>
+<li class="chapter" data-level="11" data-path="descomposición-estacionalidad-y-estacionariedad.html"><a href="descomposición-estacionalidad-y-estacionariedad.html"><i class="fa fa-check"></i><b>11</b> Descomposición, Estacionalidad y Estacionariedad</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="descomposición-estacionalidad-y-estacionariedad.html"><a href="descomposición-estacionalidad-y-estacionariedad.html#descomposición-de-la-serie"><i class="fa fa-check"></i><b>11.1</b> Descomposición de la serie</a></li>
+<li class="chapter" data-level="11.2" data-path="descomposición-estacionalidad-y-estacionariedad.html"><a href="descomposición-estacionalidad-y-estacionariedad.html#estacionariedad-prueba-adf"><i class="fa fa-check"></i><b>11.2</b> Estacionariedad (Prueba ADF)</a></li>
+<li class="chapter" data-level="11.3" data-path="descomposición-estacionalidad-y-estacionariedad.html"><a href="descomposición-estacionalidad-y-estacionariedad.html#diferenciación-si-es-necesaria"><i class="fa fa-check"></i><b>11.3</b> Diferenciación (si es necesaria)</a></li>
+<li class="chapter" data-level="11.4" data-path="descomposición-estacionalidad-y-estacionariedad.html"><a href="descomposición-estacionalidad-y-estacionariedad.html#transformación-opcional"><i class="fa fa-check"></i><b>11.4</b> Transformación (opcional)</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="conclusión.html"><a href="conclusión.html"><i class="fa fa-check"></i><b>12</b> Conclusión</a></li>
+<li class="chapter" data-level="13" data-path="fuente-de-datos-1.html"><a href="fuente-de-datos-1.html"><i class="fa fa-check"></i><b>13</b> Fuente de datos</a></li>
+<li class="chapter" data-level="14" data-path="avance-3-1.html"><a href="avance-3-1.html"><i class="fa fa-check"></i><b>14</b> Avance 3</a></li>
+<li class="chapter" data-level="15" data-path="modelización-con-el-método-holt-winters.html"><a href="modelización-con-el-método-holt-winters.html"><i class="fa fa-check"></i><b>15</b> Modelización con el Método Holt-Winters</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="modelización-con-el-método-holt-winters.html"><a href="modelización-con-el-método-holt-winters.html#introducción-1"><i class="fa fa-check"></i><b>15.1</b> Introducción</a></li>
+<li class="chapter" data-level="15.2" data-path="modelización-con-el-método-holt-winters.html"><a href="modelización-con-el-método-holt-winters.html#justificación-del-modelo"><i class="fa fa-check"></i><b>15.2</b> Justificación del modelo</a></li>
+<li class="chapter" data-level="15.3" data-path="modelización-con-el-método-holt-winters.html"><a href="modelización-con-el-método-holt-winters.html#implementación-en-r"><i class="fa fa-check"></i><b>15.3</b> Implementación en R</a></li>
+<li class="chapter" data-level="15.4" data-path="modelización-con-el-método-holt-winters.html"><a href="modelización-con-el-método-holt-winters.html#análisis-de-resultados"><i class="fa fa-check"></i><b>15.4</b> Análisis de Resultados</a></li>
+<li class="chapter" data-level="15.5" data-path="modelización-con-el-método-holt-winters.html"><a href="modelización-con-el-método-holt-winters.html#reflexión"><i class="fa fa-check"></i><b>15.5</b> Reflexión</a></li>
+<li class="chapter" data-level="15.6" data-path="modelización-con-el-método-holt-winters.html"><a href="modelización-con-el-método-holt-winters.html#fuentes"><i class="fa fa-check"></i><b>15.6</b> Fuentes</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Análisis temporal - Avance 3</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="descomposición-estacionalidad-y-estacionariedad" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Capítulo 11</span> Descomposición, Estacionalidad y Estacionariedad<a href="descomposición-estacionalidad-y-estacionariedad.html#descomposición-estacionalidad-y-estacionariedad" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En este avance se continúa con el análisis de la variable <code>ventas</code> en la base de datos Online Retail. Se realiza una descomposición de la serie, se evalúa su estacionalidad, se aplica la prueba de estacionariedad ADF y se implementa la diferenciación si es necesaria, justificando cada paso con base en el comportamiento observado.</p>
+<div id="descomposición-de-la-serie" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Descomposición de la serie<a href="descomposición-estacionalidad-y-estacionariedad.html#descomposición-de-la-serie" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb8-2"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb8-3"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-4"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-4" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb8-5"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-5" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb8-6"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-6" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb8-7"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-8" tabindex="-1"></a><span class="co"># Cargar y procesar datos</span></span>
+<span id="cb8-9"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-9" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Online-Retail.xlsx&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fecha =</span> <span class="fu">as.Date</span>(InvoiceDate),</span>
+<span id="cb8-11"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-11" tabindex="-1"></a>         <span class="at">ventas =</span> Quantity <span class="sc">*</span> UnitPrice) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-12" tabindex="-1"></a>  <span class="fu">group_by</span>(Fecha) <span class="sc">%&gt;%</span></span>
+<span id="cb8-13"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-13" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">ventas_totales =</span> <span class="fu">sum</span>(ventas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb8-14"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-14" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-15" tabindex="-1"></a><span class="co"># Crear serie temporal diaria</span></span>
+<span id="cb8-16"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-16" tabindex="-1"></a>ventas_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(datos<span class="sc">$</span>ventas_totales, <span class="at">frequency =</span> <span class="dv">7</span>) <span class="co"># semanal</span></span>
+<span id="cb8-17"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-17" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-18" tabindex="-1"></a><span class="co"># Descomposición aditiva</span></span>
+<span id="cb8-19"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-19" tabindex="-1"></a>decomp <span class="ot">&lt;-</span> <span class="fu">decompose</span>(ventas_ts)</span>
+<span id="cb8-20"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb8-20" tabindex="-1"></a><span class="fu">plot</span>(decomp)</span></code></pre></div>
+<p><img src="index_files/figure-html/descomposicion-1.png" width="672" /></p>
+<p><strong>Interpretación</strong>:<br />
+La descomposición aditiva muestra las componentes de la serie: tendencia, estacionalidad y residuos. La tendencia refleja un crecimiento progresivo hacia finales del año, mientras que la estacionalidad muestra oscilaciones semanales propias del comportamiento comercial. Los residuos reflejan fluctuaciones no explicadas por los componentes anteriores.</p>
+</div>
+<div id="estacionariedad-prueba-adf" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Estacionariedad (Prueba ADF)<a href="descomposición-estacionalidad-y-estacionariedad.html#estacionariedad-prueba-adf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb9-1" tabindex="-1"></a><span class="co"># ADF test requiere la librería aTSA</span></span>
+<span id="cb9-2"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb9-2" tabindex="-1"></a><span class="co"># install.packages(&quot;aTSA&quot;) si no está instalada</span></span>
+<span id="cb9-3"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb9-3" tabindex="-1"></a><span class="fu">library</span>(aTSA)</span></code></pre></div>
+<pre><code>## 
+## Adjuntando el paquete: &#39;aTSA&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:forecast&#39;:
+## 
+##     forecast</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     identify</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb13-1" tabindex="-1"></a><span class="fu">adf.test</span>(ventas_ts)</span></code></pre></div>
+<pre><code>## Augmented Dickey-Fuller Test 
+## alternative: stationary 
+##  
+## Type 1: no drift no trend 
+##      lag    ADF p.value
+## [1,]   0 -4.888  0.0100
+## [2,]   1 -3.087  0.0100
+## [3,]   2 -2.061  0.0404
+## [4,]   3 -1.546  0.1264
+## [5,]   4 -1.162  0.2636
+## [6,]   5 -0.543  0.4848
+## Type 2: with drift no trend 
+##      lag    ADF p.value
+## [1,]   0 -11.65   0.010
+## [2,]   1  -8.08   0.010
+## [3,]   2  -5.81   0.010
+## [4,]   3  -4.80   0.010
+## [5,]   4  -3.77   0.010
+## [6,]   5  -2.08   0.298
+## Type 3: with drift and trend 
+##      lag    ADF p.value
+## [1,]   0 -13.63  0.0100
+## [2,]   1  -9.99  0.0100
+## [3,]   2  -7.63  0.0100
+## [4,]   3  -6.56  0.0100
+## [5,]   4  -5.59  0.0100
+## [6,]   5  -3.83  0.0178
+## ---- 
+## Note: in fact, p.value = 0.01 means p.value &lt;= 0.01</code></pre>
+<p><strong>Resultado</strong>:<br />
+Si el p-valor es mayor a 0.05, se concluye que la serie <strong>no es estacionaria</strong>. En ese caso, se realiza una diferenciación.</p>
+</div>
+<div id="diferenciación-si-es-necesaria" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Diferenciación (si es necesaria)<a href="descomposición-estacionalidad-y-estacionariedad.html#diferenciación-si-es-necesaria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb15-1" tabindex="-1"></a>ventas_diff <span class="ot">&lt;-</span> <span class="fu">diff</span>(ventas_ts)</span>
+<span id="cb15-2"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb15-2" tabindex="-1"></a><span class="fu">plot</span>(ventas_diff, <span class="at">main =</span> <span class="st">&quot;Serie diferenciada&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/diferencia-1.png" width="672" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb16-1" tabindex="-1"></a><span class="co"># Nueva prueba ADF</span></span>
+<span id="cb16-2"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb16-2" tabindex="-1"></a><span class="fu">adf.test</span>(ventas_diff)</span></code></pre></div>
+<pre><code>## Augmented Dickey-Fuller Test 
+## alternative: stationary 
+##  
+## Type 1: no drift no trend 
+##      lag   ADF p.value
+## [1,]   0 -27.3    0.01
+## [2,]   1 -21.1    0.01
+## [3,]   2 -16.4    0.01
+## [4,]   3 -15.3    0.01
+## [5,]   4 -19.4    0.01
+## [6,]   5 -12.4    0.01
+## Type 2: with drift no trend 
+##      lag   ADF p.value
+## [1,]   0 -27.2    0.01
+## [2,]   1 -21.0    0.01
+## [3,]   2 -16.4    0.01
+## [4,]   3 -15.2    0.01
+## [5,]   4 -19.4    0.01
+## [6,]   5 -12.4    0.01
+## Type 3: with drift and trend 
+##      lag   ADF p.value
+## [1,]   0 -27.2    0.01
+## [2,]   1 -21.0    0.01
+## [3,]   2 -16.4    0.01
+## [4,]   3 -15.2    0.01
+## [5,]   4 -19.5    0.01
+## [6,]   5 -12.5    0.01
+## ---- 
+## Note: in fact, p.value = 0.01 means p.value &lt;= 0.01</code></pre>
+<p><strong>Justificación</strong>:<br />
+La diferenciación se aplica para eliminar la tendencia y estabilizar la varianza, con el objetivo de obtener una serie estacionaria adecuada para modelado. Si tras diferenciar el p-valor de ADF es menor a 0.05, la serie puede considerarse estacionaria.</p>
+</div>
+<div id="transformación-opcional" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> Transformación (opcional)<a href="descomposición-estacionalidad-y-estacionariedad.html#transformación-opcional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb18-1" tabindex="-1"></a><span class="co"># Transformación logarítmica</span></span>
+<span id="cb18-2"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb18-2" tabindex="-1"></a>log_ventas <span class="ot">&lt;-</span> <span class="fu">log</span>(ventas_ts)</span></code></pre></div>
+<pre><code>## Warning in log(ventas_ts): Se han producido NaNs</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="descomposición-estacionalidad-y-estacionariedad.html#cb20-1" tabindex="-1"></a><span class="fu">plot</span>(log_ventas, <span class="at">main =</span> <span class="st">&quot;Logaritmo de ventas&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/log-transform-1.png" width="672" /></p>
+<p><strong>Observación</strong>:<br />
+La transformación logarítmica puede ser útil si se observan grandes saltos o escalas muy distintas en la serie original. En este caso, se implementa de forma exploratoria para observar su efecto en la estabilidad de la varianza.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="avance-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusión.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
