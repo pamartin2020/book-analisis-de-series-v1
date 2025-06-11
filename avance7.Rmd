@@ -1,13 +1,10 @@
----
-title: "Avance 7: Redes Neuronales Elman y Jordan"
-output: html_document
----
+# Avance 7
 
-# Introducción
+## Introducción
 
 Este avance aplica redes neuronales recurrentes Elman y Jordan para el pronóstico de cantidades vendidas en el dataset `Online-Retail.xlsx`, agrupadas por mes.
 
-# Preparación de datos
+## Preparación de datos
 
 ```{r setup_datos, include=TRUE}
 library(readxl)
@@ -17,38 +14,15 @@ library(RSNNS)
 
 # Cargar los datos
 data <- read_excel("Online-Retail.xlsx")
-print("Dimensiones del dataset original:")
-print(dim(data))
-
-# Verificar estructura de los datos originales
-print("\nColumnas en el dataset:")
-print(names(data))
-
-# Convertir y verificar fechas
-data$InvoiceDate <- as.POSIXct(data$InvoiceDate)
-print("\nRango de fechas en los datos originales:")
-print(paste("Fecha mínima:", min(data$InvoiceDate, na.rm = TRUE)))
-print(paste("Fecha máxima:", max(data$InvoiceDate, na.rm = TRUE)))
 
 # Limpiar datos
 data_clean <- data %>%
   filter(!is.na(InvoiceDate), !is.na(Quantity)) %>%
   filter(Quantity > 0)  # Eliminar devoluciones (cantidades negativas)
 
-print("\nNúmero de registros después de limpieza:")
-print(nrow(data_clean))
-
-# Crear columna de mes explícitamente
-data_clean$Month <- floor_date(data_clean$InvoiceDate, "month")
-
-# Verificar meses únicos antes de la agregación
-unique_months <- unique(data_clean$Month)
-print("\nMeses únicos en los datos:")
-print(sort(unique_months))
-print(paste("Número total de meses únicos:", length(unique_months)))
-
-# Agrupar por mes y sumar la cantidad
+# Crear columna de mes y agregar datos
 data_monthly <- data_clean %>%
+  mutate(Month = floor_date(as.POSIXct(InvoiceDate), "month")) %>%
   group_by(Month) %>%
   summarise(
     Quantity = sum(Quantity, na.rm = TRUE),
@@ -56,35 +30,18 @@ data_monthly <- data_clean %>%
   ) %>%
   arrange(Month)
 
-# Mostrar resumen detallado de datos mensuales
-print("\nResumen de datos mensuales:")
-print(paste("Número de meses:", nrow(data_monthly)))
-print("\nTodos los meses disponibles:")
+# Mostrar resumen de datos
+print("Resumen de datos mensuales:")
 print(data_monthly)
 
 # Crear serie como vector
 y_vec <- as.numeric(data_monthly$Quantity)
 
-print("\nEstadísticas de cantidades mensuales:")
-print(summary(y_vec))
-
-# Reducir el número de lags al mínimo
-n_lags <- 3  # Reducido a solo 3 lags
-print(paste("\nNúmero de lags utilizados:", n_lags))
-
-# Crear matriz de lags usando embed
+# Crear matriz de lags
+n_lags <- 3
 lag_matrix <- embed(y_vec, n_lags + 1)
-print("\nDimensiones de la matriz de lags:")
-print(dim(lag_matrix))
 
-# Si no hay suficientes datos, intentar con menos lags
-if(is.null(dim(lag_matrix))) {
-  n_lags <- 2  # Intentar con solo 2 lags
-  print("\nReintentando con menos lags:")
-  lag_matrix <- embed(y_vec, n_lags + 1)
-  print(dim(lag_matrix))
-}
-
+# Separar en inputs y outputs
 outputs <- lag_matrix[, 1]
 inputs <- lag_matrix[, -1]
 
@@ -93,114 +50,133 @@ normalize <- function(x) {
   return((x - min(x)) / (max(x) - min(x)))
 }
 
-inputs_norm <- normalize(inputs)
-outputs_norm <- normalize(outputs)
-
-# Verificar dimensiones antes de crear los índices
-print("\nDimensiones antes de la división train/test:")
-print(paste("Dimensiones de inputs_norm:", nrow(inputs_norm), "x", ncol(inputs_norm)))
-print(paste("Longitud de outputs_norm:", length(outputs_norm)))
-
-# Asegurarse de que tenemos suficientes datos
-if(nrow(inputs_norm) < 4) { # Reducido al mínimo absoluto
-  stop("No hay suficientes datos mensuales para el análisis. Se necesitan al menos 4 meses.")
-}
-
-# Índices de entrenamiento (último valor se reserva para prueba)
-n_train <- nrow(inputs_norm) - 1  # Reducido a solo 1 mes de prueba
-train_idx <- 1:n_train
-
-# Preparar datos de entrenamiento
-x_train <- inputs_norm[train_idx,]
-y_train <- matrix(outputs_norm[train_idx], ncol=1)
-
-# Verificación final de dimensiones
-print("\nDimensiones finales para el entrenamiento:")
-print(paste("X dimensiones:", nrow(x_train), "x", ncol(x_train)))
-print(paste("Y dimensiones:", nrow(y_train), "x", ncol(y_train)))
-```
-
-# Red Neuronal Elman
-
-```{r elman-model}
-# Entrenamiento del modelo Elman con datos normalizados
-fit_elman <- elman(x = x_train, 
-                   y = y_train,
-                   size = c(3),  # Simplificada a una sola capa oculta
-                   learnFuncParams = c(0.1),
-                   maxit = 500)  # Reducido aún más el número de iteraciones
-
-plotIterativeError(fit_elman)
-```
-
-# Predicción Elman
-
-```{r elman-pred}
-# Predicción y desnormalización
-pred_elman <- predict(fit_elman, inputs_norm[-train_idx,])
-y_test <- outputs_norm[-train_idx]
-
-# Función para desnormalizar
 denormalize <- function(x, original) {
   return(x * (max(original) - min(original)) + min(original))
 }
 
-# Desnormalizar predicciones y valores reales
-pred_elman_real <- denormalize(pred_elman, outputs)
-y_test_real <- denormalize(y_test, outputs)
+inputs_norm <- normalize(inputs)
+outputs_norm <- normalize(outputs)
+
+# Preparar datos de entrenamiento (usar todos menos el último para entrenar)
+n_train <- nrow(inputs_norm) - 1
+train_idx <- 1:n_train
+
+# Preparar matrices de entrenamiento
+x_train <- inputs_norm[train_idx,]
+y_train <- matrix(outputs_norm[train_idx], ncol=1)
+
+# Verificar dimensiones
+print("\nDimensiones de los datos:")
+print(paste("Entrenamiento X:", nrow(x_train), "x", ncol(x_train)))
+print(paste("Entrenamiento Y:", nrow(y_train), "x", ncol(y_train)))
+
+# Preparar datos de prueba
+x_test <- matrix(inputs_norm[-train_idx,], ncol=ncol(inputs_norm))
+y_test <- matrix(outputs_norm[-train_idx], ncol=1)
+```
+
+## Red Neuronal Elman
+
+```{r elman-model}
+# Entrenamiento del modelo Elman
+fit_elman <- elman(x = x_train, 
+                   y = y_train,
+                   size = c(3),
+                   learnFuncParams = c(0.1),
+                   maxit = 500)
+
+# Mostrar error de entrenamiento
+plotIterativeError(fit_elman)
+```
+
+## Predicción Elman
+
+```{r elman-pred}
+# Realizar predicción
+pred_elman <- predict(fit_elman, x_test)
+
+# Desnormalizar resultados
+pred_real_elman <- denormalize(pred_elman, y_vec)
+actual_real <- y_vec[-train_idx]
 
 # Graficar resultados
-plot(y_test_real, type = "l", main = "Predicción Elman", 
-     ylab = "Cantidad", xlab = "Tiempo")
-lines(pred_elman_real, col = "red")
-legend("topright", legend = c("Real", "Predicción"), 
-       col = c("black", "red"), lty = 1)
+plot(actual_real, type="p", col="blue", pch=16,
+     main="Predicción Elman vs Valor Real",
+     xlab="Punto de prueba",
+     ylab="Cantidad")
+points(pred_real_elman, col="red", pch=16)
+legend("topright", 
+       legend=c("Valor Real", "Predicción"),
+       col=c("blue", "red"),
+       pch=16)
 
-# Calcular RMSE
-rmse_elman <- sqrt(mean((y_test_real - pred_elman_real)^2))
+# Calcular error (asegurando dimensiones correctas)
+rmse_elman <- sqrt(mean((as.vector(actual_real) - as.vector(pred_real_elman))^2))
 print(paste("RMSE Elman:", rmse_elman))
 ```
 
-# Red Neuronal Jordan
+## Red Neuronal Jordan
 
 ```{r jordan-model}
-# Entrenamiento del modelo Jordan con datos normalizados
-fit_jordan <- jordan(x = inputs_norm[train_idx,], 
-                     y = outputs_matrix[train_idx,],
-                     size = 4,
-                     learnFuncParams = c(0.05),
-                     maxit = 5000)
+# Entrenamiento del modelo Jordan
+fit_jordan <- jordan(x = x_train, 
+                    y = y_train,
+                    size = c(3),
+                    learnFuncParams = c(0.1),
+                    maxit = 500)
 
+# Mostrar error de entrenamiento
 plotIterativeError(fit_jordan)
 ```
 
-# Predicción Jordan
+## Predicción Jordan
 
 ```{r jordan-pred}
-# Predicción y desnormalización
-pred_jordan <- predict(fit_jordan, inputs_norm[-train_idx,])
+# Realizar predicción
+pred_jordan <- predict(fit_jordan, x_test)
 
-# Desnormalizar predicciones
-pred_jordan_real <- denormalize(pred_jordan, outputs)
+# Desnormalizar resultados
+pred_real_jordan <- denormalize(pred_jordan, y_vec)
 
 # Graficar resultados
-plot(y_test_real, type = "l", main = "Predicción Jordan", 
-     ylab = "Cantidad", xlab = "Tiempo")
-lines(pred_jordan_real, col = "red")
-legend("topright", legend = c("Real", "Predicción"), 
-       col = c("black", "red"), lty = 1)
+plot(actual_real, type="p", col="blue", pch=16,
+     main="Predicción Jordan vs Valor Real",
+     xlab="Punto de prueba",
+     ylab="Cantidad")
+points(pred_real_jordan, col="red", pch=16)
+legend("topright", 
+       legend=c("Valor Real", "Predicción"),
+       col=c("blue", "red"),
+       pch=16)
 
-# Calcular RMSE
-rmse_jordan <- sqrt(mean((y_test_real - pred_jordan_real)^2))
+# Calcular error (asegurando dimensiones correctas)
+rmse_jordan <- sqrt(mean((as.vector(actual_real) - as.vector(pred_real_jordan))^2))
 print(paste("RMSE Jordan:", rmse_jordan))
 ```
 
-# Conclusiones
+## Comparación de Modelos
 
-Ambos modelos muestran un desempeño adecuado en la predicción de valores futuros usando datos reales. La estructura temporal mensual y el uso de 10 lags permiten captar patrones clave en las ventas globales. Los cambios principales implementados incluyen:
+```{r compare-models}
+# Crear dataframe con resultados
+results <- data.frame(
+  Modelo = c("Elman", "Jordan"),
+  RMSE = c(rmse_elman, rmse_jordan)
+)
 
-1. Normalización de datos para mejorar el entrenamiento
-2. Verificación de dimensiones y formato de datos
-3. Cálculo de métricas de error (RMSE)
-4. Desnormalización de predicciones para interpretabilidad
-5. Mejoras en la visualización de resultados
+# Mostrar resultados
+print("Comparación de modelos:")
+print(results)
+```
+
+## Conclusiones
+
+El análisis muestra que:
+
+1. Los datos contienen 13 meses de ventas (Dic 2010 - Dic 2011)
+2. Se utilizaron 3 lags para la predicción
+3. Se compararon dos tipos de redes neuronales recurrentes:
+   - Red Elman: utiliza retroalimentación de la capa oculta
+   - Red Jordan: utiliza retroalimentación de la capa de salida
+4. Los resultados muestran la capacidad de ambos modelos para capturar patrones en las ventas mensuales
+
+La comparación de RMSE nos permite determinar cuál modelo tuvo mejor desempeño en este conjunto de datos particular.
