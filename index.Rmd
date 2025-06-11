@@ -138,3 +138,7 @@ En el avance anterior se analizaron las ventas por día, su promedio móvil, la 
 
 ```{r child="avance6.Rmd"}
 ```
+
+
+```{r child="avance7.Rmd"}
+```
